@@ -8,8 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.nadia.ucpakhir.ui.tanaman.view.DestinasiDetailTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiEntryTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiHomeTanaman
+import com.nadia.ucpakhir.ui.tanaman.view.DetailScreenTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.EntryTnmnScreen
 import com.nadia.ucpakhir.ui.tanaman.view.HomeTanamanScreen
 
@@ -27,9 +29,9 @@ fun PengelolaHalamanPertanian(
                 navigateToltemEntry = {
                     navController.navigate(DestinasiEntryTanaman.route)
                 },
-                onDetailClick = { //nim ->
-//                    navController.navigate("${DestinasiDetail.route}/$nim")
-//                    println("PengelolaHalaman: nim = $nim")
+                onDetailClick = { idtnmn ->
+                    navController.navigate("${DestinasiDetailTanaman.route}/$idtnmn")
+                    println("PengelolaHalaman: idTanaman = $idtnmn")
                 }
             )
         }
@@ -40,6 +42,29 @@ fun PengelolaHalamanPertanian(
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable (
+            DestinasiDetailTanaman.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDetailTanaman.IDtnmn) {
+                    type = NavType.IntType
+                }
+            )
+        ){
+            val idtanaman = it.arguments?.getInt(DestinasiDetailTanaman.IDtnmn)
+
+            idtanaman?.let { idtanaman ->
+                DetailScreenTanaman(
+                    navigateBack = {
+                        navController.navigate(DestinasiHomeTanaman.route) {
+                            popUpTo(DestinasiHomeTanaman.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            }
         }
     }
 }
