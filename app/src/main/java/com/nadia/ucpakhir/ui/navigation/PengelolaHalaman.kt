@@ -11,9 +11,11 @@ import androidx.navigation.navArgument
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiDetailTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiEntryTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiHomeTanaman
+import com.nadia.ucpakhir.ui.tanaman.view.DestinasiTanamanUpdate
 import com.nadia.ucpakhir.ui.tanaman.view.DetailScreenTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.EntryTnmnScreen
 import com.nadia.ucpakhir.ui.tanaman.view.HomeTanamanScreen
+import com.nadia.ucpakhir.ui.tanaman.view.UpdateScreenTanaman
 
 @Composable
 fun PengelolaHalamanPertanian(
@@ -31,6 +33,10 @@ fun PengelolaHalamanPertanian(
                 },
                 onDetailClick = { idtnmn ->
                     navController.navigate("${DestinasiDetailTanaman.route}/$idtnmn")
+                    println("PengelolaHalaman: idTanaman = $idtnmn")
+                },
+                onEditClick = { idtnmn ->
+                    navController.navigate("${DestinasiTanamanUpdate.route}/$idtnmn")
                     println("PengelolaHalaman: idTanaman = $idtnmn")
                 }
             )
@@ -51,7 +57,7 @@ fun PengelolaHalamanPertanian(
                     type = NavType.IntType
                 }
             )
-        ){
+        ) {
             val idtanaman = it.arguments?.getInt(DestinasiDetailTanaman.IDtnmn)
 
             idtanaman?.let { idtanaman ->
@@ -62,6 +68,27 @@ fun PengelolaHalamanPertanian(
                                 inclusive = true
                             }
                         }
+                    }
+                )
+            }
+        }
+
+        composable(
+            DestinasiTanamanUpdate.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDetailTanaman.IDtnmn){
+                    type = NavType.IntType
+                }
+            )
+        ){
+            val idtanaman = it.arguments?.getInt(DestinasiTanamanUpdate.IDtnmn)
+            idtanaman?.let { idtanaman ->
+                UpdateScreenTanaman(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onNavigate = {
+                        navController.popBackStack()
                     }
                 )
             }

@@ -69,6 +69,7 @@ fun HomeTanamanScreen(
     navigateToltemEntry: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
+    onEditClick: (Int) -> Unit = {},
     viewModel: HomeTanamanViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -102,7 +103,8 @@ fun HomeTanamanScreen(
             onDeleteClick = {
                 viewModel.deleteTanaman(it.idTanaman)
                 viewModel.getTanaman()
-            }
+            },
+            onEditClick = onEditClick
         )
     }
 }
@@ -113,7 +115,8 @@ fun HomeTanamanStatus(
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
     onDeleteClick: (Tanaman) -> Unit = {},
-    onDetailClick: (Int) -> Unit
+    onDetailClick: (Int) -> Unit,
+    onEditClick: (Int) -> Unit
 ){
     when (homeTanamanUiState){
         is HomeTanamanUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
@@ -131,6 +134,9 @@ fun HomeTanamanStatus(
                     },
                     onDeleteClick = {
                         onDeleteClick(it)
+                    },
+                    onEditClick = {
+                        onEditClick(it.idTanaman)
                     }
                 )
             }
@@ -179,7 +185,8 @@ fun TanamanLayout(
     tanaman: List<Tanaman>,
     modifier: Modifier = Modifier,
     onDetailClick: (Tanaman) -> Unit,
-    onDeleteClick: (Tanaman) -> Unit = {}
+    onDeleteClick: (Tanaman) -> Unit = {},
+    onEditClick: (Tanaman) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -194,6 +201,9 @@ fun TanamanLayout(
                     .clickable { onDetailClick(tnmn) },
                 onDeleteClick = {
                     onDeleteClick(tnmn)
+                },
+                onEditClick = {
+                    onEditClick(tnmn)
                 }
             )
         }
