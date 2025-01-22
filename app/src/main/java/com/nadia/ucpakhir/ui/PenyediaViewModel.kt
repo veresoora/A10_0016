@@ -9,6 +9,7 @@ import com.nadia.ucpakhir.PertanianApp
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.DetailTanamanViewModel
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.HomeTanamanViewModel
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.InsertTanamanViewModel
+import com.nadia.ucpakhir.ui.tanaman.viewmodel.UpdateTanamanViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
@@ -20,6 +21,12 @@ object PenyediaViewModel {
         }
         initializer {
             DetailTanamanViewModel(
+                createSavedStateHandle(),
+                pertanianApp().container.tanamanRepository
+            )
+        }
+        initializer {
+            UpdateTanamanViewModel(
                 createSavedStateHandle(),
                 pertanianApp().container.tanamanRepository
             )
