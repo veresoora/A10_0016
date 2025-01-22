@@ -17,19 +17,40 @@ class InsertTanamanViewModel(private val tnmn:TanamanRepository): ViewModel(){
         uiState = InsertTanamanUiState(insertTanamanUiEvent = insertTanamanUiEvent)
     }
 
+    fun validateFields(): Boolean {
+        val event = uiState.insertTanamanUiEvent
+        val errorState = FormErrorState(
+            namaTanaman = if (event.namaTanaman.isNotEmpty()) null else "Nama Tanaman tidak boleh kosong",
+            periodeTanam = if (event.periodeTanam.isNotEmpty()) null else "Periode Tanam tidak boleh kosong",
+            deskripsiTanaman = if (event.deskripsiTanaman.isNotEmpty()) null else "Deskripsi Tanaman tidak boleh kosong"
+        )
+
+        uiState = uiState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
+
     suspend fun insertTnmn(){
-        viewModelScope.launch {
-            try {
-                tnmn.insertTanaman(uiState.insertTanamanUiEvent.toTanaman())
-            } catch (e: Exception){
-                e.printStackTrace()
+        val currentEvent = uiState.insertTanamanUiEvent
+
+        if (validateFields()){
+            viewModelScope.launch {
+                try {
+                    tnmn.insertTanaman(currentEvent.toTanaman())
+                    uiState = uiState.copy(
+                        insertTanamanUiEvent = InsertTanamanUiEvent(),
+                        isEntryValid = FormErrorState()
+                    )
+                } catch (e: Exception){
+                    e.printStackTrace()
+                }
             }
         }
     }
 }
 
 data class InsertTanamanUiState(
-    val insertTanamanUiEvent: InsertTanamanUiEvent = InsertTanamanUiEvent()
+    val insertTanamanUiEvent: InsertTanamanUiEvent = InsertTanamanUiEvent(),
+    val isEntryValid: FormErrorState = FormErrorState()
 )
 
 data class InsertTanamanUiEvent(
@@ -56,3 +77,15 @@ fun Tanaman.toInsertTanamanUiEvent(): InsertTanamanUiEvent = InsertTanamanUiEven
     periodeTanam = periodeTanam,
     deskripsiTanaman = deskripsiTanaman
 )
+
+data class FormErrorState(
+    val namaTanaman: String? = null,
+    val periodeTanam: String? = null,
+    val deskripsiTanaman: String? = null
+){
+    fun isValid(): Boolean {
+        return namaTanaman == null
+                && periodeTanam == null
+                && deskripsiTanaman == null
+    }
+}
