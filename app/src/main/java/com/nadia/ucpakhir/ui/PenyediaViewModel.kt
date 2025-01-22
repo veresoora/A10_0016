@@ -7,11 +7,15 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.nadia.ucpakhir.PertanianApp
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.HomeTanamanViewModel
+import com.nadia.ucpakhir.ui.tanaman.viewmodel.InsertTanamanViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer {
             HomeTanamanViewModel(pertanianApp().container.tanamanRepository)
+        }
+        initializer {
+            InsertTanamanViewModel(pertanianApp().container.tanamanRepository)
         }
     }
 }
