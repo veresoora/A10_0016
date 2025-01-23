@@ -101,7 +101,7 @@ fun EntryBodyTanaman(
         Button (
             onClick = onSaveClick,
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF004D40)),
             modifier = Modifier.fillMaxWidth()
         ){
             Text(text = "Simpan",

@@ -91,9 +91,20 @@ fun HomePekerjaScreen(
             FloatingActionButton (
                 onClick = navigateToltemEntry,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
+                modifier = Modifier.padding(18.dp),
+                containerColor = Color(0xFF8D6E63)
+
             ){
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Pekerja")
+                Column (
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(10.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Add,
+                        contentDescription = "Add Pekerja",
+                        tint = Color.White)
+                    Text(text = "Tambah Pekerja",
+                        color = Color.White)
+                }
             }
         },
     ){ innerPadding ->
