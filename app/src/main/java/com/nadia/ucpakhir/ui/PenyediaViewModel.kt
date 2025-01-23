@@ -9,6 +9,7 @@ import com.nadia.ucpakhir.PertanianApp
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.DetailPekerjaViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.HomePekerjaViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.InsertPekerjaViewModel
+import com.nadia.ucpakhir.ui.pekerja.viewmodel.UpdatePekerjaViewModel
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.DetailTanamanViewModel
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.HomeTanamanViewModel
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.InsertTanamanViewModel
@@ -43,6 +44,12 @@ object PenyediaViewModel {
         }
         initializer {
             DetailPekerjaViewModel(
+                createSavedStateHandle(),
+                pertanianApp().containerPekerja.pekerjaRepository
+            )
+        }
+        initializer {
+            UpdatePekerjaViewModel(
                 createSavedStateHandle(),
                 pertanianApp().containerPekerja.pekerjaRepository
             )

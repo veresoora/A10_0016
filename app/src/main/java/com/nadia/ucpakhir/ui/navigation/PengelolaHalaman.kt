@@ -11,9 +11,11 @@ import androidx.navigation.navArgument
 import com.nadia.ucpakhir.ui.pekerja.view.DestinasiDetailPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.DestinasiEntryPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.DestinasiHomePekerja
+import com.nadia.ucpakhir.ui.pekerja.view.DestinasiPekerjaUpdate
 import com.nadia.ucpakhir.ui.pekerja.view.DetailScreenPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.EntryPkrjScreen
 import com.nadia.ucpakhir.ui.pekerja.view.HomePekerjaScreen
+import com.nadia.ucpakhir.ui.pekerja.view.UpdateScreenPekerja
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiDetailTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiEntryTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiHomeTanaman
@@ -87,7 +89,7 @@ fun PengelolaHalamanPertanian(
         composable(
             DestinasiTanamanUpdate.routeWithArg,
             arguments = listOf(
-                navArgument(DestinasiDetailTanaman.IDtnmn){
+                navArgument(DestinasiTanamanUpdate.IDtnmn){
                     type = NavType.IntType
                 }
             )
@@ -112,7 +114,10 @@ fun PengelolaHalamanPertanian(
                     navController.navigate("${DestinasiDetailPekerja.route}/$idpkrj")
                     println("PengelolaHalaman: idPekerja = $idpkrj")
                                 },
-                onEditClick = {},
+                onEditClick = { idpkrj ->
+                    navController.navigate("${DestinasiPekerjaUpdate.route}/$idpkrj")
+                    println("PengelolaHalaman: idPekerja = $idpkrj")
+                },
                 oBack = {
                     navController.popBackStack()
                 }
@@ -149,5 +154,28 @@ fun PengelolaHalamanPertanian(
                 )
             }
         }
+
+        composable(
+            DestinasiPekerjaUpdate.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiPekerjaUpdate.IDpkrj){
+                    type = NavType.IntType
+                }
+            )
+        ){
+            val idpekerja = it.arguments?.getInt(DestinasiPekerjaUpdate.IDpkrj)
+            idpekerja?.let { idpekerja ->
+                UpdateScreenPekerja(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onNavigate = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
+
+
     }
 }
