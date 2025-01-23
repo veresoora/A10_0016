@@ -67,7 +67,7 @@ fun InsertPekerjaUiEvent.toPekerja(): Pekerja = Pekerja(
     kontakPekerja = kontakPekerja
 )
 
-fun Pekerja.toUiState(): InsertPekerjaUiState = InsertPekerjaUiState(
+fun Pekerja.toUiStatePekerja(): InsertPekerjaUiState = InsertPekerjaUiState(
     insertPekerjaUiEvent = toInsertPekerjaUiEvent()
 )
 
