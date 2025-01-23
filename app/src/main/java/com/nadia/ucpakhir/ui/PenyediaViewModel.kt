@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.nadia.ucpakhir.PertanianApp
+import com.nadia.ucpakhir.ui.pekerja.viewmodel.DetailPekerjaViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.HomePekerjaViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.InsertPekerjaViewModel
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.DetailTanamanViewModel
@@ -39,6 +40,12 @@ object PenyediaViewModel {
         }
         initializer {
             InsertPekerjaViewModel(pertanianApp().containerPekerja.pekerjaRepository)
+        }
+        initializer {
+            DetailPekerjaViewModel(
+                createSavedStateHandle(),
+                pertanianApp().containerPekerja.pekerjaRepository
+            )
         }
     }
 }

@@ -8,8 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.nadia.ucpakhir.ui.pekerja.view.DestinasiDetailPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.DestinasiEntryPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.DestinasiHomePekerja
+import com.nadia.ucpakhir.ui.pekerja.view.DetailScreenPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.EntryPkrjScreen
 import com.nadia.ucpakhir.ui.pekerja.view.HomePekerjaScreen
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiDetailTanaman
@@ -106,19 +108,46 @@ fun PengelolaHalamanPertanian(
         composable(DestinasiHomePekerja.route){
             HomePekerjaScreen(
                 navigateToltemEntry = {navController.navigate(DestinasiEntryPekerja.route) },
-                onDetailClick = {},
+                onDetailClick = {idpkrj ->
+                    navController.navigate("${DestinasiDetailPekerja.route}/$idpkrj")
+                    println("PengelolaHalaman: idPekerja = $idpkrj")
+                                },
                 onEditClick = {},
                 oBack = {
                     navController.popBackStack()
                 }
             )
         }
+
         composable(DestinasiEntryPekerja.route) {
             EntryPkrjScreen(
                 navigateBack = {
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable (
+            DestinasiDetailPekerja.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDetailPekerja.IDpkrj) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val idpekerja = it.arguments?.getInt(DestinasiDetailPekerja.IDpkrj)
+
+            idpekerja?.let { idpekerja ->
+                DetailScreenPekerja(
+                    navigateBack = {
+                        navController.navigate(DestinasiHomePekerja.route) {
+                            popUpTo(DestinasiHomePekerja.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            }
         }
     }
 }
