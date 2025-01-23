@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.nadia.ucpakhir.ui.pekerja.view.DestinasiHomePekerja
+import com.nadia.ucpakhir.ui.pekerja.view.HomePekerjaScreen
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiDetailTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiEntryTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiHomeTanaman
@@ -38,6 +40,11 @@ fun PengelolaHalamanPertanian(
                 onEditClick = { idtnmn ->
                     navController.navigate("${DestinasiTanamanUpdate.route}/$idtnmn")
                     println("PengelolaHalaman: idTanaman = $idtnmn")
+                },
+                oClickAktivitasPertanian = {},
+                oClickCatatanPanen = {},
+                onClickPekerja = {
+                    navController.navigate(DestinasiHomePekerja.route)
                 }
             )
         }
@@ -92,6 +99,17 @@ fun PengelolaHalamanPertanian(
                     }
                 )
             }
+        }
+
+        composable(DestinasiHomePekerja.route){
+            HomePekerjaScreen(
+                navigateToltemEntry = {},
+                onDetailClick = {},
+                onEditClick = {},
+                oBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
