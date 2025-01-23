@@ -8,7 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.nadia.ucpakhir.ui.pekerja.view.DestinasiEntryPekerja
 import com.nadia.ucpakhir.ui.pekerja.view.DestinasiHomePekerja
+import com.nadia.ucpakhir.ui.pekerja.view.EntryPkrjScreen
 import com.nadia.ucpakhir.ui.pekerja.view.HomePekerjaScreen
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiDetailTanaman
 import com.nadia.ucpakhir.ui.tanaman.view.DestinasiEntryTanaman
@@ -103,10 +105,17 @@ fun PengelolaHalamanPertanian(
 
         composable(DestinasiHomePekerja.route){
             HomePekerjaScreen(
-                navigateToltemEntry = {},
+                navigateToltemEntry = {navController.navigate(DestinasiEntryPekerja.route) },
                 onDetailClick = {},
                 onEditClick = {},
                 oBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(DestinasiEntryPekerja.route) {
+            EntryPkrjScreen(
+                navigateBack = {
                     navController.popBackStack()
                 }
             )
