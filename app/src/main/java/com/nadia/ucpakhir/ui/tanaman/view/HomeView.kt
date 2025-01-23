@@ -54,9 +54,11 @@ import com.nadia.ucpakhir.R
 import com.nadia.ucpakhir.model.Tanaman
 import com.nadia.ucpakhir.ui.PenyediaViewModel
 import com.nadia.ucpakhir.ui.customwidget.CostumeTopAppBar
+import com.nadia.ucpakhir.ui.customwidget.CustomNavigation
 import com.nadia.ucpakhir.ui.navigation.DestinasiNavigasi
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.HomeTanamanUiState
 import com.nadia.ucpakhir.ui.tanaman.viewmodel.HomeTanamanViewModel
+import okhttp3.internal.wait
 
 object DestinasiHomeTanaman : DestinasiNavigasi {
     override val route = "home_tanaman"
@@ -70,12 +72,44 @@ fun HomeTanamanScreen(
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
     onEditClick: (Int) -> Unit = {},
+    onClickPekerja: () -> Unit = {},
+    oClickAktivitasPertanian: () -> Unit = {},
+    oClickCatatanPanen: () -> Unit = {},
     viewModel: HomeTanamanViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
+            CustomNavigation(
+                oClickAktivitasPertanian = {},
+                oClickPekerja = onClickPekerja,
+                oClickCatatanPanen = {}
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton (
+                onClick = navigateToltemEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp),
+                containerColor = Color(0xFF004D40)
+            ){
+                Column (
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(10.dp)
+                ){
+                    Icon(imageVector = Icons.Default.Add,
+                        contentDescription = "Add Tanaman",
+                        tint = Color.White)
+                    Text(text = "Tambah Tanaman",
+                        color = Color.White)
+                }
+            }
+        },
+    ){ innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
             CostumeTopAppBar(
                 title = DestinasiHomeTanaman.titleRes,
                 canNavigateBack = false,
@@ -84,28 +118,17 @@ fun HomeTanamanScreen(
                     viewModel.getTanaman()
                 }
             )
-        },
-        floatingActionButton = {
-            FloatingActionButton (
-                onClick = navigateToltemEntry,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ){
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Tanaman")
-            }
-        },
-    ){ innerPadding ->
-        HomeTanamanStatus (
-            homeTanamanUiState = viewModel.tanamanUiState,
-            retryAction = { viewModel.getTanaman() },
-            modifier = Modifier.padding(innerPadding),
-            onDetailClick = onDetailClick,
-            onDeleteClick = {
-                viewModel.deleteTanaman(it.idTanaman)
-                viewModel.getTanaman()
-            },
-            onEditClick = onEditClick
-        )
+            HomeTanamanStatus (
+                homeTanamanUiState = viewModel.tanamanUiState,
+                retryAction = { viewModel.getTanaman() },
+                onDetailClick = onDetailClick,
+                onDeleteClick = {
+                    viewModel.deleteTanaman(it.idTanaman)
+                    viewModel.getTanaman()
+                },
+                onEditClick = onEditClick
+            )
+        }
     }
 }
 
@@ -123,7 +146,7 @@ fun HomeTanamanStatus(
         is HomeTanamanUiState.Success ->
             if (homeTanamanUiState.tanaman.isEmpty()) {
                 return Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "Tidak ada data Kontak")
+                    Text(text = "Tidak ada data Tanaman")
                 }
             }else {
                 TanamanLayout(
