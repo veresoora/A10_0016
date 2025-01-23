@@ -57,7 +57,6 @@ import com.nadia.ucpakhir.ui.customwidget.CostumeTopAppBar
 import com.nadia.ucpakhir.ui.navigation.DestinasiNavigasi
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.HomePekerjaUiState
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.HomePekerjaViewModel
-import com.nadia.ucpakhir.ui.tanaman.view.OnError
 
 object DestinasiHomePekerja : DestinasiNavigasi {
     override val route = "home_pekerja"
@@ -143,7 +142,7 @@ fun HomePekerjaStatus(
                     }
                 )
             }
-        is HomePekerjaUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+        is HomePekerjaUiState.Error -> OnErrorPekerja(retryAction, modifier = modifier.fillMaxSize())
     }
 }
 
