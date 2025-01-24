@@ -136,7 +136,7 @@ fun HomePekerjaStatus(
         is HomePekerjaUiState.Success ->
             if (homePekerjaUiState.pekerja.isEmpty()) {
                 return Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "Tidak ada data Tanaman")
+                    Text(text = "Tidak ada data Pekerja")
                 }
             }else {
                 PekerjaLayout(
