@@ -101,7 +101,7 @@ fun EntryBodyPekerja(
         Button (
             onClick = onSaveClick,
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8D6E63)),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF004D40)),
             modifier = Modifier.fillMaxWidth()
         ){
             Text(text = "Simpan",
@@ -133,8 +133,8 @@ fun FormInputPekerja(
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF8D6E63),
-                cursorColor = Color(0xFF8D6E63)
+                focusedBorderColor = Color(0xFF388E3C),
+                cursorColor = Color(0xFF388E3C)
             )
         )
         Text(
@@ -150,8 +150,8 @@ fun FormInputPekerja(
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF8D6E63),
-                cursorColor = Color(0xFF8D6E63)
+                focusedBorderColor = Color(0xFF388E3C),
+                cursorColor = Color(0xFF388E3C)
             )
         )
         Text(
@@ -165,8 +165,8 @@ fun FormInputPekerja(
             isError = errorState.kontakPekerja != null,
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF8D6E63),
-                cursorColor = Color(0xFF8D6E63)
+                focusedBorderColor = Color(0xFF388E3C),
+                cursorColor = Color(0xFF388E3C)
             )
         )
         Text(

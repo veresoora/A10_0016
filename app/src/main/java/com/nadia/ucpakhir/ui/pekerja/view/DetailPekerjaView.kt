@@ -124,7 +124,7 @@ fun ComponentDetailPkrj(
             text = "$judul : ",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF8D6E63)
+            color = Color(0xFF004D40)
         )
         Text(
             text = isinya,
