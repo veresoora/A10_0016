@@ -47,8 +47,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.nadia.ucpakhir.R
 import com.nadia.ucpakhir.model.Pekerja
@@ -91,19 +93,26 @@ fun HomePekerjaScreen(
             FloatingActionButton (
                 onClick = navigateToltemEntry,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp),
-                containerColor = Color(0xFF8D6E63)
-
+                modifier = Modifier.padding(10.dp).padding(start = 30.dp),
+                containerColor = Color(0xFF00796B)
             ){
-                Column (
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(10.dp)
-                ) {
-                    Icon(imageVector = Icons.Default.Add,
-                        contentDescription = "Add Pekerja",
-                        tint = Color.White)
-                    Text(text = "Tambah Pekerja",
-                        color = Color.White)
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ){
+                    Image(
+                        painter = painterResource(R.drawable.adduser),
+                        contentDescription = "add",
+                        modifier = Modifier.size(30.dp)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = "Tambah Pekerja",
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp
+                    )
                 }
             }
         },
@@ -243,7 +252,7 @@ fun PekerjaCard(
         Box(
             modifier = Modifier
                 .background(
-                    Color(0xFF3E2723)
+                    Color(0xFF004D40)
                 )
                 .padding(16.dp)
                 .fillMaxWidth()
