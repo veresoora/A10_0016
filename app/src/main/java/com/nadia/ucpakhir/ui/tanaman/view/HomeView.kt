@@ -47,8 +47,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.nadia.ucpakhir.R
 import com.nadia.ucpakhir.model.Tanaman
@@ -82,27 +84,35 @@ fun HomeTanamanScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CustomNavigation(
-                oClickAktivitasPertanian = {},
+                oClickAktivitasPertanian = oClickAktivitasPertanian,
                 oClickPekerja = onClickPekerja,
-                oClickCatatanPanen = {}
+                oClickCatatanPanen = oClickCatatanPanen
             )
         },
         floatingActionButton = {
             FloatingActionButton (
                 onClick = navigateToltemEntry,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp),
+                modifier = Modifier.padding(10.dp).padding(start = 30.dp),
                 containerColor = Color(0xFF004D40)
             ){
-                Column (
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(10.dp)
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
                 ){
-                    Icon(imageVector = Icons.Default.Add,
-                        contentDescription = "Add Tanaman",
-                        tint = Color.White)
-                    Text(text = "Tambah Tanaman",
-                        color = Color.White)
+                    Image(
+                        painter = painterResource(R.drawable.add),
+                        contentDescription = "add",
+                        modifier = Modifier.size(30.dp)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = "Tambah Tanaman",
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp
+                    )
                 }
             }
         },
