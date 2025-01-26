@@ -16,6 +16,8 @@ interface PekerjaRepository {
     suspend fun deletePekerja(idPekerja: Int)
 
     suspend fun getPekerjaID(idPekerja: Int): Pekerja
+
+    suspend fun getPekerjaAll(): List<Pekerja>
 }
 
 class NetworkPekerjaRepository (
@@ -50,5 +52,9 @@ class NetworkPekerjaRepository (
 
     override suspend fun getPekerjaID(idPekerja: Int): Pekerja {
         return pekerjaService.getPekerjaID(idPekerja).data
+    }
+
+    override suspend fun getPekerjaAll(): List<Pekerja> {
+        return pekerjaService.getAllPekerja().data
     }
 }

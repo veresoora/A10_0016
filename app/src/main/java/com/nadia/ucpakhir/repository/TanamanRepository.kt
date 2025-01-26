@@ -16,6 +16,8 @@ interface TanamanRepository {
     suspend fun deleteTanaman(idTanaman: Int)
 
     suspend fun getTanamanID(idTanaman: Int): Tanaman
+
+    suspend fun getTanamanAll() : List<Tanaman>
 }
 
 class NetworkTanamanRepository (
@@ -50,5 +52,9 @@ class NetworkTanamanRepository (
 
     override suspend fun getTanamanID(idTanaman: Int): Tanaman {
         return tanamanService.getTanamanID(idTanaman).data
+    }
+
+    override suspend fun getTanamanAll(): List<Tanaman> {
+        return tanamanService.getAllTanaman().data
     }
 }
