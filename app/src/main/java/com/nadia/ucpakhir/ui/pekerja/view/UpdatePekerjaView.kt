@@ -52,10 +52,12 @@ fun UpdateScreenPekerja(
             insertPekerjaUiState = viewModel.updatePekerjaUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.updatePekerja()
-                    delay(600)
-                    withContext(Dispatchers.Main){
-                        onNavigate()
+                    if (viewModel.validateFields()){
+                        viewModel.updatePekerja()
+                        delay(600)
+                        withContext(Dispatchers.Main){
+                            onNavigate()
+                        }
                     }
                 }
             }

@@ -52,10 +52,12 @@ fun UpdateScreenTanaman(
             insertTanamanUiState = viewModel.updateTanamanUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.updateTanaman()
-                    delay(600)
-                    withContext(Dispatchers.Main){
-                        onNavigate()
+                    if (viewModel.validateFields()){
+                        viewModel.updateTanaman()
+                        delay(600)
+                        withContext(Dispatchers.Main){
+                            onNavigate()
+                        }
                     }
                 }
             }

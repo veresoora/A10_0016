@@ -52,10 +52,12 @@ fun UpdateScreenAktivitas(
             inserAktivitasUiState = viewModel.updateAktivitasUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.updateAktivitas()
-                    delay(600)
-                    withContext(Dispatchers.Main){
-                        onNavigate()
+                    if (viewModel.validateFields()){
+                        viewModel.updateAktivitas()
+                        delay(600)
+                        withContext(Dispatchers.Main){
+                            onNavigate()
+                        }
                     }
                 }
             },

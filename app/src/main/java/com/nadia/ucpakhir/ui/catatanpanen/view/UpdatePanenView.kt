@@ -53,10 +53,12 @@ fun UpdateScreenPanen(
             insertPanenUiState = viewModel.updatePanenUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.updatePanen()
-                    delay(600)
-                    withContext(Dispatchers.Main){
-                        onNavigate()
+                    if (viewModel.validateFields()){
+                        viewModel.updatePanen()
+                        delay(600)
+                        withContext(Dispatchers.Main){
+                            onNavigate()
+                        }
                     }
                 }
             },
