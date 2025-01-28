@@ -40,7 +40,7 @@ fun UpdateScreenPanen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CostumeTopAppBar(
-                title = DestinasiAktivitasUpdate.titleRes,
+                title = DestinasiPanenUpdate.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = onBack,
