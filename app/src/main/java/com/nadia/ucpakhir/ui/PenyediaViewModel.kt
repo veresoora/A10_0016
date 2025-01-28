@@ -6,6 +6,14 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.nadia.ucpakhir.PertanianApp
+import com.nadia.ucpakhir.ui.aktivitaspertanian.viewmodel.DetailAktivitasViewModel
+import com.nadia.ucpakhir.ui.aktivitaspertanian.viewmodel.HomeAktivitasViewModel
+import com.nadia.ucpakhir.ui.aktivitaspertanian.viewmodel.InsertAktivitasViewModel
+import com.nadia.ucpakhir.ui.aktivitaspertanian.viewmodel.UpdateAktivitasViewModel
+import com.nadia.ucpakhir.ui.catatanpanen.viewmodel.DetailPanenViewModel
+import com.nadia.ucpakhir.ui.catatanpanen.viewmodel.HomeCatatanPanenViewModel
+import com.nadia.ucpakhir.ui.catatanpanen.viewmodel.InsertPanenViewModel
+import com.nadia.ucpakhir.ui.catatanpanen.viewmodel.UpdatePanenViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.DetailPekerjaViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.HomePekerjaViewModel
 import com.nadia.ucpakhir.ui.pekerja.viewmodel.InsertPekerjaViewModel
@@ -52,6 +60,66 @@ object PenyediaViewModel {
             UpdatePekerjaViewModel(
                 createSavedStateHandle(),
                 pertanianApp().containerPekerja.pekerjaRepository
+            )
+        }
+
+        initializer {
+            HomeAktivitasViewModel(
+                pertanianApp().containerAktivitasPertanian.aktivitasPertanianRepository,
+                pertanianApp().container.tanamanRepository,
+                pertanianApp().containerPekerja.pekerjaRepository
+            )
+        }
+        initializer {
+            InsertAktivitasViewModel(
+                pertanianApp().containerAktivitasPertanian.aktivitasPertanianRepository,
+                pertanianApp().container.tanamanRepository,
+                pertanianApp().containerPekerja.pekerjaRepository
+            )
+        }
+        initializer {
+            DetailAktivitasViewModel(
+                createSavedStateHandle(),
+                pertanianApp().containerAktivitasPertanian.aktivitasPertanianRepository,
+                pertanianApp().container.tanamanRepository,
+                pertanianApp().containerPekerja.pekerjaRepository
+            )
+        }
+        initializer {
+            UpdateAktivitasViewModel(
+                createSavedStateHandle(),
+                pertanianApp().containerAktivitasPertanian.aktivitasPertanianRepository,
+                pertanianApp().container.tanamanRepository,
+                pertanianApp().containerPekerja.pekerjaRepository
+            )
+        }
+
+        initializer {
+            HomeCatatanPanenViewModel(
+                pertanianApp().containerCatatanPanen.catatanPanenRepository,
+                pertanianApp().container.tanamanRepository
+                )
+        }
+        initializer {
+            InsertPanenViewModel(
+                pertanianApp().containerCatatanPanen.catatanPanenRepository,
+                pertanianApp().container.tanamanRepository
+            )
+        }
+
+        initializer {
+            DetailPanenViewModel(
+                createSavedStateHandle(),
+                pertanianApp().containerCatatanPanen.catatanPanenRepository,
+                pertanianApp().container.tanamanRepository,
+            )
+        }
+
+        initializer {
+            UpdatePanenViewModel(
+                createSavedStateHandle(),
+                pertanianApp().containerCatatanPanen.catatanPanenRepository,
+                pertanianApp().container.tanamanRepository,
             )
         }
     }
