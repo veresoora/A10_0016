@@ -39,7 +39,7 @@ fun UpdateScreenPekerja(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CostumeTopAppBar(
-                title = DestinasiDetailPekerja.titleRes,
+                title = DestinasiPekerjaUpdate.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = onBack,
