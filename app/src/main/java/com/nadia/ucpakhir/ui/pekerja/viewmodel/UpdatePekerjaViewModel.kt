@@ -26,12 +26,26 @@ class UpdatePekerjaViewModel (
     fun updateInsertPekerjaState(insertPekerjaUiEvent: InsertPekerjaUiEvent){
         updatePekerjaUiState = InsertPekerjaUiState(insertPekerjaUiEvent = insertPekerjaUiEvent)
     }
+    fun validateFields(): Boolean {
+        val event = updatePekerjaUiState.insertPekerjaUiEvent
+        val errorState = FormErrorState(
+            namaPekerja = if (event.namaPekerja.isNotEmpty()) null else "Nama Pekerja tidak boleh kosong",
+            jabatan = if (event.jabatan.isNotEmpty()) null else "Jabatan tidak boleh kosong",
+            kontakPekerja = if (event.kontakPekerja.isNotEmpty()) null else "Kontak Pekerja tidak boleh kosong"
+        )
+
+        updatePekerjaUiState = updatePekerjaUiState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
     suspend fun updatePekerja(){
-        viewModelScope.launch {
-            try {
-                pekerjaRepository.updatePekerja(_idpkrj, updatePekerjaUiState.insertPekerjaUiEvent.toPekerja())
-            }catch (e: Exception){
-                e.printStackTrace()
+        val currentEvent = updatePekerjaUiState.insertPekerjaUiEvent
+        if (validateFields()){
+            viewModelScope.launch {
+                try {
+                    pekerjaRepository.updatePekerja(_idpkrj, currentEvent.toPekerja())
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
             }
         }
     }

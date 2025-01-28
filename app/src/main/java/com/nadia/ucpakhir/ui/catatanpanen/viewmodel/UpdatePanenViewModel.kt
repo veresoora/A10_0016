@@ -46,10 +46,23 @@ class UpdatePanenViewModel(
     fun updateInsertPanenState(insertPanenUiEvent: InsertPanenUiEvent){
         updatePanenUiState = InsertPanenUiState(insertPanenUiEvent = insertPanenUiEvent)
     }
+    fun validateFields(): Boolean {
+        val event = updatePanenUiState.insertPanenUiEvent
+        val errorState = FormErrorState(
+            idTanaman = if (event.idTanaman > 0) null else "Nama Tanaman tidak boleh kosong",
+            tanggalPanen = if (event.tanggalPanen.isNotEmpty()) null else "Tanggal Panen tidak boleh kosong",
+            jumlahPanen = if (event.jumlahPanen.isNotEmpty()) null else "Jumlah Panen tidak boleh kosong",
+            keterangan = if (event.keterangan.isNotEmpty()) null else "Keterangan tidak boleh kosong"
+        )
+
+        updatePanenUiState = updatePanenUiState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
     suspend fun updatePanen(){
+        val currentEvent = updatePanenUiState.insertPanenUiEvent
         viewModelScope.launch {
             try {
-                pnn.updatePanen(_idpnn, updatePanenUiState.insertPanenUiEvent.toPanen())
+                pnn.updatePanen(_idpnn, currentEvent.toPanen())
             }catch (e: Exception){
                 e.printStackTrace()
             }

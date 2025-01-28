@@ -61,10 +61,23 @@ class UpdateAktivitasViewModel (
     fun updateInsertAktivitasState(insertAktivitasUiEvent: InsertAktivitasUiEvent){
         updateAktivitasUiState = InserAktivitasUiState(insertAktivitasUiEvent = insertAktivitasUiEvent)
     }
+    fun validateFields(): Boolean {
+        val event = updateAktivitasUiState.insertAktivitasUiEvent
+        val errorState = FormErrorState(
+            idTanaman = if (event.idTanaman > 0) null else "Nama Tanaman tidak boleh kosong",
+            idPekerja = if (event.idPekerja > 0) null else "Nama Pekerja tidak boleh kosong",
+            tanggalAktivitas = if (event.tanggalAktivitas.isNotEmpty()) null else "Tanggal Aktivitas tidak boleh kosong",
+            deskripsiAktivitas = if (event.deskripsiAktivitas.isNotEmpty()) null else "Deskripsi Aktivitas tidak boleh kosong"
+        )
+
+        updateAktivitasUiState = updateAktivitasUiState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
     suspend fun updateAktivitas(){
+        val currentEvent = updateAktivitasUiState.insertAktivitasUiEvent
         viewModelScope.launch {
             try {
-                aktivitasPertanianRepository.updateAktivitas(_idaktvts, updateAktivitasUiState.insertAktivitasUiEvent.toAktivitas())
+                aktivitasPertanianRepository.updateAktivitas(_idaktvts, currentEvent.toAktivitas())
             }catch (e: Exception){
                 e.printStackTrace()
             }

@@ -26,12 +26,26 @@ class UpdateTanamanViewModel (
     fun updateInsertTanamanState(insertTanamanUiEvent: InsertTanamanUiEvent){
         updateTanamanUiState = InsertTanamanUiState(insertTanamanUiEvent = insertTanamanUiEvent)
     }
+    fun validateFields(): Boolean {
+        val event = updateTanamanUiState.insertTanamanUiEvent
+        val errorState = FormErrorState(
+            namaTanaman = if (event.namaTanaman.isNotEmpty()) null else "Nama Tanaman tidak boleh kosong",
+            periodeTanam = if (event.periodeTanam.isNotEmpty()) null else "Periode Tanam tidak boleh kosong",
+            deskripsiTanaman = if (event.deskripsiTanaman.isNotEmpty()) null else "Deskripsi Tanaman tidak boleh kosong"
+        )
+
+        updateTanamanUiState = updateTanamanUiState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
     suspend fun updateTanaman(){
-        viewModelScope.launch {
-            try {
-                tanamanRepository.updateTanaman(_idtnmn, updateTanamanUiState.insertTanamanUiEvent.toTanaman())
-            }catch (e: Exception){
-                e.printStackTrace()
+        val currentEvent = updateTanamanUiState.insertTanamanUiEvent
+        if (validateFields()){
+            viewModelScope.launch {
+                try {
+                    tanamanRepository.updateTanaman(_idtnmn, currentEvent.toTanaman())
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
             }
         }
     }
