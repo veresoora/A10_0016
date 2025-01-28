@@ -1,5 +1,6 @@
 package com.nadia.ucpakhir.ui.catatanpanen.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,7 @@ object DestinasiEntryPanen : DestinasiNavigasi {
     override val titleRes = "Tambah Catatan Panen"
 }
 
+@SuppressLint("NewApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EntryPnnScreen(
