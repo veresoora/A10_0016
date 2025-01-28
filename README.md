@@ -1,4 +1,4 @@
-![tampilan dropdwon di update catatan panen](https://github.com/user-attachments/assets/5fd9f828-f59b-4aa3-b331-bf061266176f)**Tanaman**
+**Tanaman**
 1. Menu Utama
    ![Home Tanaman](https://github.com/user-attachments/assets/6f6bb0da-4836-433e-a3ef-d4905c5901ad)
 2. Tampilan Validasi Input Tanaman
