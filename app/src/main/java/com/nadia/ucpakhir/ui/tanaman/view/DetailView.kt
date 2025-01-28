@@ -1,13 +1,23 @@
 package com.nadia.ucpakhir.ui.tanaman.view
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -15,10 +25,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.nadia.ucpakhir.R
 import com.nadia.ucpakhir.model.Tanaman
 import com.nadia.ucpakhir.ui.PenyediaViewModel
 import com.nadia.ucpakhir.ui.customwidget.CostumeTopAppBar
@@ -37,6 +49,7 @@ object DestinasiDetailTanaman : DestinasiNavigasi {
 @Composable
 fun DetailScreenTanaman(
     navigateBack: () -> Unit,
+    navigateToEntryCatatanPanen: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: DetailTanamanViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
@@ -50,6 +63,33 @@ fun DetailScreenTanaman(
                     viewModel.getTanamanID()
                 }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton (
+                onClick = navigateToEntryCatatanPanen,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(10.dp).padding(start = 30.dp),
+                containerColor = Color(0xFF004D40)
+            ){
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ){
+                    Image(
+                        painter = painterResource(R.drawable.addnote),
+                        contentDescription = "add",
+                        modifier = Modifier.size(30.dp)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = "Tambah Catatan Panen",
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp
+                    )
+                }
+            }
         }
     ) { innerPadding ->
         DetailStatusTanaman(
@@ -124,7 +164,7 @@ fun ComponentDetailTnmn(
             text = "$judul : ",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Green
+            color = Color(0xFF004D40)
         )
         Text(
             text = isinya,
