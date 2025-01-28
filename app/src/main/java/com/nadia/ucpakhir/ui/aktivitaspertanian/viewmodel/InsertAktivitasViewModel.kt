@@ -81,7 +81,7 @@ class InsertAktivitasViewModel(
                     val formattedDate = zonedDateTime.format(DateTimeFormatter.ISO_DATE_TIME)
 
                     val updatedEvent = currentEvent.copy(tanggalAktivitas = formattedDate)
-                    aktvts.insertAktivitas(currentEvent.toAktivitas())
+                    aktvts.insertAktivitas(updatedEvent.toAktivitas())
                     uiState = uiState.copy(
                         insertAktivitasUiEvent = InsertAktivitasUiEvent(),
                         isEntryValid = FormErrorState()
